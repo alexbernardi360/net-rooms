@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="utf-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+
+        <title>net-rooms</title>
+        <link rel="icon" href="icons/favicon.ico">
+
+        <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+        <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
+        <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script> 
+        <link rel="stylesheet" href="css/index.css">
+    </head>
+    <body>
+        <div class="login-form">
+            <form action="chat.html">
+
+                <h2 class="text-center">net-rooms</h2>
+
+                <div class="form-group">
+                    <label>Username</label>
+                    <input
+                        type="text"
+                        class="form-control"
+                        placeholder="Username"
+                        name="username"
+                        id="username"
+                        required="required"
+                    />
+                </div>
+
+                <div class="form-group">
+                    <label>Room</label>
+                    <select class="form-control" name="room" id="room">
+                        <option value="Welcome">Welcome</option>
+                        <option value="Random">Random</option>
+                        <option value="Music">Music</option>
+                        <option value="Sport">Sport</option>
+                        <option value="News">News</option>
+                    </select>
+                </div>
+
+                <div class="form-group">
+                    <button type="submit" class="btn btn-primary btn-block">Join Now</button>
+                </div>
+
+            </form>
+        </div>
+    </body>
+</html>
