@@ -85,7 +85,13 @@
                 
                 <form id="msg_form" autocomplete="off">
                     <div class="input-group">
-                        <input type="text" class="form-control" placeholder="Type message here..." id="message">
+                        <input
+                            type="text"
+                            id="message"
+                            class="form-control"
+                            placeholder="Type message here..."
+                            required="required"
+                        />
                         <div class="input-group-btn">
                             <button class="btn btn-success" type="submit">Send</button>
                         </div>
@@ -95,7 +101,7 @@
             </div>
         </div>
 
-        <!-- Script for sidebar -->
+        <!-- Scripts -->
         <script type="text/javascript">
             $(document).ready(function () {
                 $("#sidebar").mCustomScrollbar({

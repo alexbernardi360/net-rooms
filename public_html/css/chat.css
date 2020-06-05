@@ -149,7 +149,7 @@ a.article:hover {
 
 #content {
     width: calc(100% - 250px);
-    padding: 40px;
+    padding: 30px;
     min-height: 100vh;
     transition: all 0.3s;
     position: absolute;
@@ -220,5 +220,10 @@ form {
     }
     #sidebarCollapse span {
         display: none;
+    }
+    .screen
+    {
+        height: 50vh;
+        overflow: auto;
     }
 }

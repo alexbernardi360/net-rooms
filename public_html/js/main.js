@@ -2,6 +2,14 @@ const socket = io();
 
 const msg_form = document.getElementById('msg_form');
 
+const urlParams = new URLSearchParams(window.location.search);
+const username = urlParams.get('username');
+const room = urlParams.get('room');
+
+
+// Join room
+socket.emit('join', {username, room});
+
 // Run when the server emits a message
 socket.on('message', message => {
     console.log(message);
@@ -16,7 +24,8 @@ msg_form.addEventListener('submit', event => {
     event.preventDefault();
 
     const message = event.target.elements.message.value;
-    msg_form.reset();   // Clear the form from the submitted message;
+    msg_form.reset();   // Clear the form from the submitted message
+    event.target.elements.message.focus();  // When submit focus on input
 
     console.log(`Message sent: ${message}`);
 
@@ -30,9 +39,12 @@ function printMessage(message) {
     let attribute = document.createAttribute('class');
     attribute.value = 'container-fluid msg';
     newMsg.setAttributeNode(attribute);
-    newMsg.innerHTML = `    <p class="font-weight-bold">Frank</p>
-                            <p>${message}</p>
-                            <span class="time-right">11:00</span>`;
+    newMsg.innerHTML = `    <p class="font-weight-bold">${message.user}</p>
+                            <p>${message.string}</p>
+                            <span class="time-right">${message.time}</span>`;
     let chat = document.getElementById('chat');
     chat.appendChild(newMsg);
+
+    // Auto scroll on bottom
+    chat.scrollTop = chat.scrollHeight;
 }

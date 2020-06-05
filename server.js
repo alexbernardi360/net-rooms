@@ -1,42 +1,66 @@
+// Requires external modules
 const express   = require('express');
-const path      = require('path');
 const http      = require('http');
 const socketio  = require('socket.io');
+
+// Requires internal modules
+const createMessage     = require('./utils/message.js');
+const joinUser          = require('./utils/user.js').joinUser;
+const leaveUser         = require('./utils/user.js').leaveUser;
+const getUserById       = require('./utils/user.js').getUserById;
+const getUsersByRoom    = require('./utils/user.js').getUsersByRoom;
+
 
 const app       = express();
 const server    = http.createServer(app);
 const io        = socketio(server);
 
-const PORT = process.env.PORT || 8080;
-const listener = server.listen(PORT, () =>
+const PORT      = process.env.PORT || 8080;
+const listener  = server.listen(PORT, () =>
     console.log(`The server is listening on port: ${listener.address().port}`)
 );
 
-// Define public_html
-app.use(express.static(path.join(__dirname, 'public_html')));
+// Define static directory public_html
+app.use(express.static(`${__dirname}/public_html`));
+
+const bot = 'net-room';
 
 // Run when a client connects
 io.on('connection', socket => {
-    console.log('New WS connection...');
+    socket.on('join', ({username, room}) => {
+        console.log(`${username} joins ${room} room.`);
 
-    // Send to the client who connected
-    socket.emit('message', 'Welcome to net-rooms');
+        // Add the user at the users list
+        var user = joinUser(socket.id, username, room);
 
-    // Broadcast when a user connects
-    // Send to everyone except those who connected
-    socket.broadcast.emit('message', 'New user connected.');
+        socket.join(user.room)
 
-    // Run when a client disconnets
-    socket.on('disconnect', () => {
-        // Send to all connected clients
-        io.emit('message', 'A user has disconnected.');
-        console.log('A user has disconnected.');
+        // Send to the client who connected
+        socket.emit('message', createMessage(bot, `Welcome to ${room} room.`));
+
+        // Broadcast when a user connects
+        // Send to everyone except those who connected
+        socket.broadcast
+            .to(user.room)
+            .emit('message', createMessage(bot, `${username} connected.`));
     });
 
     // Run when a client emit newMessage
     socket.on('newMessage', message => {
+        // Get the user connect with that socket id
+        var user = getUserById(socket.id);
         console.log(message);
         // Sending the received message to all connected clients
-        io.emit('message', message);
+        io.to(user.room).emit('message', createMessage(user.username, message));
+    });
+
+    // Run when a client disconnets
+    socket.on('disconnect', () => {
+        var user = leaveUser(socket.id);
+
+        if (user) {
+            io.to(user.room).emit('message', createMessage(bot, `${user.username} has disconnected.`));
+            console.log(`${user.username} has disconnected.`);
+        }
     });
 });
