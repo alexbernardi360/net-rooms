@@ -43,7 +43,7 @@
                 <ul class="list-unstyled components">
                     <p>Room name</p>
                     <li class="active">
-                        <a href="#homeSubmenu" data-toggle="collapse" aria-expanded="false" class="dropdown-toggle">Users</a>
+                        <a href="#homeSubmenu" data-toggle="collapse" aria-expanded="false" class="dropdown-toggle">Connected users</a>
                         <ul class="collapse list-unstyled" id="homeSubmenu">
                             <li>
                                 <a href="#">Frank</a>
@@ -77,57 +77,15 @@
                     </div>
                 </nav>
 
-                <div class="overflow-auto screen" display="block">
-                    <div class="container-fluid msg">
-                        <p class="font-weight-bold">Frank</p>
-                        <p>Hello. How are you today?</p>
-                        <span class="time-right">11:00</span>
-                    </div>
-                    <div class="container-fluid msg">
-                        <p class="font-weight-bold">Mark</p>
-                        <p>Well, you?</p>
-                        <span class="time-right">11:01</span>
-                    </div>
-
-                    <div class="container-fluid msg">
-                        <p class="font-weight-bold">Frank</p>
-                        <p>Hello. How are you today?</p>
-                        <span class="time-right">11:00</span>
-                    </div>
-                    <div class="container-fluid msg">
-                        <p class="font-weight-bold">Mark</p>
-                        <p>Well, you?</p>
-                        <span class="time-right">11:01</span>
-                    </div>
-
-                    <div class="container-fluid msg">
-                        <p class="font-weight-bold">Frank</p>
-                        <p>Hello. How are you today?</p>
-                        <span class="time-right">11:00</span>
-                    </div>
-                    <div class="container-fluid msg">
-                        <p class="font-weight-bold">Mark</p>
-                        <p>Well, you?</p>
-                        <span class="time-right">11:01</span>
-                    </div>
-
-                    <div class="container-fluid msg">
-                        <p class="font-weight-bold">Frank</p>
-                        <p>Hello. How are you today?</p>
-                        <span class="time-right">11:00</span>
-                    </div>
-                    <div class="container-fluid msg">
-                        <p class="font-weight-bold">Mark</p>
-                        <p>Well, you?</p>
-                        <span class="time-right">11:01</span>
-                    </div>
+                <div id="chat" class="overflow-auto screen" display="block">
+                    <!-- Space for future messages -->
                 </div>
 
                 <hr>
                 
-                <form>
+                <form id="msg_form" autocomplete="off">
                     <div class="input-group">
-                        <input type="text" class="form-control" placeholder="Type message here..." name="message">
+                        <input type="text" class="form-control" placeholder="Type message here..." id="message">
                         <div class="input-group-btn">
                             <button class="btn btn-success" type="submit">Send</button>
                         </div>
