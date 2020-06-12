@@ -33,13 +33,20 @@
 
                 <div class="form-group">
                     <label>Room</label>
-                    <select class="form-control" name="room" id="room">
-                        <option value="Welcome">Welcome</option>
+                    <input
+                        class="form-control"
+                        placeholder="Type or choose a room"
+                        name="room"
+                        id="room"
+                        list="rooms"
+                    />
+                    <datalist id="rooms">
                         <option value="Random">Random</option>
                         <option value="Music">Music</option>
+                        <option value="Music">Comics</option>
                         <option value="Sport">Sport</option>
                         <option value="News">News</option>
-                    </select>
+                    </datalist>
                 </div>
 
                 <div class="form-group">
