@@ -40,9 +40,13 @@ io.on('connection', socket => {
 
         // Broadcast when a user connects
         // Send to everyone except those who connected
-        socket.broadcast
-            .to(user.room)
-            .emit('message', createMessage(bot, `${username} connected.`));
+        socket.broadcast.to(user.room).emit('message', createMessage(bot, `${username} connected.`));
+
+        // Send new informations when user join a room
+        io.to(user.room).emit('informations', {
+            room: user.room,
+            users: getUsersByRoom(user.room)
+        });
     });
 
     // Run when a client emit newMessage
@@ -61,6 +65,13 @@ io.on('connection', socket => {
         if (user) {
             io.to(user.room).emit('message', createMessage(bot, `${user.username} has disconnected.`));
             console.log(`${user.username} has disconnected.`);
+            
+            // Send new informations when a user disconnects
+            io.to(user.room).emit('informations', {
+                room: user.room,
+                users: getUsersByRoom(user.room)
+            });
         }
+
     });
 });

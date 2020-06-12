@@ -1,14 +1,21 @@
 const socket = io();
 
-const msg_form = document.getElementById('msg_form');
+const msg_form          = document.getElementById('msg_form');
+const roomName          = document.getElementById('roomName');
+const connectedUsers    = document.getElementById('connectedUsers');
 
+// Get params from URL: username and room
 const urlParams = new URLSearchParams(window.location.search);
-const username = urlParams.get('username');
-const room = urlParams.get('room');
-
+const username  = urlParams.get('username');
+const room      = urlParams.get('room');
 
 // Join room
 socket.emit('join', {username, room});
+
+// Get chat room informations
+socket.on('informations', ({room, users}) => {
+    printInfo({room, users});
+});
 
 // Run when the server emits a message
 socket.on('message', message => {
@@ -39,12 +46,27 @@ function printMessage(message) {
     let attribute = document.createAttribute('class');
     attribute.value = 'container-fluid msg';
     newMsg.setAttributeNode(attribute);
-    newMsg.innerHTML = `    <p class="font-weight-bold">${message.user}</p>
-                            <p>${message.string}</p>
-                            <span class="time-right">${message.time}</span>`;
+    newMsg.innerHTML = `<p class="font-weight-bold">${message.user}</p>
+                        <p>${message.string}</p>
+                        <span class="time-right">${message.time}</span>`;
     let chat = document.getElementById('chat');
     chat.appendChild(newMsg);
 
     // Auto scroll on bottom
     chat.scrollTop = chat.scrollHeight;
+}
+
+function printInfo({room, users}){
+    // Add room name
+    roomName.innerText = `${room}`;
+    // Add connected users list
+    connectedUsers.innerHTML = '';
+    users.forEach(element => {
+        let li = document.createElement('li');
+        let a = document.createElement('a');
+        let text = document.createTextNode(element.username);
+        a.appendChild(text);
+        li.appendChild(a);
+        connectedUsers.appendChild(li);
+    });
 }

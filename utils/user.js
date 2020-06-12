@@ -17,6 +17,7 @@ function leaveUser(id) {
     if (i != -1) {
         // get and remove one element starting from i
         const result = users.splice(i, 1);
+        users.sort(compare);
         return result[0];
     }
 
@@ -27,6 +28,7 @@ function leaveUser(id) {
 function joinUser(id, username, room) {
     const user = {id, username, room};
     users.push(user);
+    users.sort(compare);
     return user;
 }
 
@@ -39,6 +41,13 @@ function getUserById(id) {
 function getUsersByRoom(room) {
     // Get new array with the elements that passed the test.
     return users.filter(user => user.room == room);
+}
+
+// Comparison function for sorting users by username
+function compare(a, b) {
+    if (a.username < b.username) return -1;
+    if (a.username < b.username) return 1;
+    return 0;
 }
 
 exports.joinUser        = joinUser;
