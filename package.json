@@ -19,7 +19,7 @@
   "homepage": "https://github.com/alexbernardi360/net-rooms#readme",
   "dependencies": {
     "express": "^4.17.1",
-    "moment": "^2.26.0",
+    "moment-timezone": "^0.5.31",
     "socket.io": "^2.3.0"
   },
   "devDependencies": {

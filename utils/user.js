@@ -46,8 +46,8 @@ function getUsersByRoom(room) {
 // Comparison function for sorting users by username
 function compare(a, b) {
     if (a.username < b.username) return -1;
-    if (a.username < b.username) return 1;
-    return 0;
+    if (a.username > b.username) return 1;
+    return 0;   // (a.username == b.username)
 }
 
 exports.joinUser        = joinUser;
